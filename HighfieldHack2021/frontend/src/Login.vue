@@ -1,7 +1,7 @@
 <template>
   
   <div id="app">
-    <NavBar/>
+    <NavBar name="Debating Station"/>
     <img alt="Vue logo" src="./assets/logo.png">
     <Login/>
   </div>
@@ -27,6 +27,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
+
 </style>

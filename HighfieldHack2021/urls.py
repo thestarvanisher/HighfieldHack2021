@@ -22,5 +22,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("login/", views.login),
     path("logout/", views.logout),
-    path("api/", include("HighfieldHack2021.apps.api.urls"))
+    path("api/", include("HighfieldHack2021.apps.api.urls")),
+    path("", views.index)
 ]

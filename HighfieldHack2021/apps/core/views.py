@@ -42,3 +42,6 @@ def login(request, next_page="/"):
 def logout(request):
     django_logout(request)
     return redirect("/")
+
+def index(request):
+    return render(request, "index.html")
