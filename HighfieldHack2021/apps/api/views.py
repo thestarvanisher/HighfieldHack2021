@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 from HighfieldHack2021.apps.api.permissions import IsOwner
-from HighfieldHack2021.apps.api.serializers import DebateSerializer
+from HighfieldHack2021.apps.core.serializers import DebateSerializer
 from HighfieldHack2021.apps.core.models import Debate
 
 
