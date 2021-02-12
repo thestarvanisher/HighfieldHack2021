@@ -35,7 +35,7 @@ def login(request, next_page="/"):
         "form": form
     }
 
-    return render(request, "login", context=context)
+    return render(request, "login.html", context=context)
 
 
 @login_required

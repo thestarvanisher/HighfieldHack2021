@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "webpack_loader",
     "HighfieldHack2021.apps.core",
     "HighfieldHack2021.apps.api",
 ]
@@ -136,3 +137,18 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "HighfieldHack2021/static",
 ]
+
+import os
+
+VUE_FRONTEND_DIR = os.path.join(BASE_DIR, 'HighfieldHack2021/static/')
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'vue/',  # must end with slash
+        'STATS_FILE': os.path.join(VUE_FRONTEND_DIR, 'webpack-stats.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': [r'.+\.hot-update.js', r'.+\.map']
+    }
+}
