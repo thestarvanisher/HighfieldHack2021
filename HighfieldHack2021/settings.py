@@ -24,7 +24,10 @@ SECRET_KEY = "4!_%oe32$w*tum(om5mej*-+!d*z%&u#y)6k2#-*jw!h1w=v&a"
 # SECURITY WARNING: don"t run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "highfieldhack.tk",
+]
 
 # Application definition
 
@@ -55,7 +58,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            BASE_DIR / "templates"
+            BASE_DIR / "HighfieldHack2021/templates"
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -116,3 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "HighfieldHack2021/static",
+]
