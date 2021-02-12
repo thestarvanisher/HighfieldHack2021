@@ -1,1 +1,32 @@
-{"status":"done","chunks":{"login":["js/chunk-vendors.js","js/login.js"]},"publicPath":"http://localhost:8080/","assets":{"img/logo.png":{"name":"img/logo.png","path":"C:\\Users\\Me\\Desktop\\HighfieldHack2021\\HighfieldHack2021\\static\\vue\\img\\logo.png","publicPath":"http://localhost:8080/img/logo.png"},"js/chunk-vendors.js":{"name":"js/chunk-vendors.js","path":"C:\\Users\\Me\\Desktop\\HighfieldHack2021\\HighfieldHack2021\\static\\vue\\js\\chunk-vendors.js","publicPath":"http://localhost:8080/js/chunk-vendors.js"},"js/login.js":{"name":"js/login.js","path":"C:\\Users\\Me\\Desktop\\HighfieldHack2021\\HighfieldHack2021\\static\\vue\\js\\login.js","publicPath":"http://localhost:8080/js/login.js"},"favicon.ico":{"name":"favicon.ico","path":"C:\\Users\\Me\\Desktop\\HighfieldHack2021\\HighfieldHack2021\\static\\vue\\favicon.ico","publicPath":"http://localhost:8080/favicon.ico"}}}
+{
+    "status": "done",
+    "chunks": {
+        "login": [
+            "js/chunk-vendors.js",
+            "js/login.js"
+        ]
+    },
+    "publicPath": "http://localhost:8080/",
+    "assets": {
+        "img/logo.png": {
+            "name": "img/logo.png",
+            "path": "C:\\Users\\Me\\Desktop\\HighfieldHack2021\\HighfieldHack2021\\static\\vue\\img\\logo.png",
+            "publicPath": "http://localhost:8080/img/logo.png"
+        },
+        "js/chunk-vendors.js": {
+            "name": "js/chunk-vendors.js",
+            "path": "C:\\Users\\Me\\Desktop\\HighfieldHack2021\\HighfieldHack2021\\static\\vue\\js\\chunk-vendors.js",
+            "publicPath": "http://localhost:8080/js/chunk-vendors.js"
+        },
+        "js/login.js": {
+            "name": "js/login.js",
+            "path": "C:\\Users\\Me\\Desktop\\HighfieldHack2021\\HighfieldHack2021\\static\\vue\\js\\login.js",
+            "publicPath": "http://localhost:8080/js/login.js"
+        },
+        "favicon.ico": {
+            "name": "favicon.ico",
+            "path": "C:\\Users\\Me\\Desktop\\HighfieldHack2021\\HighfieldHack2021\\static\\vue\\favicon.ico",
+            "publicPath": "http://localhost:8080/favicon.ico"
+        }
+    }
+}
