@@ -1,17 +1,21 @@
 <template>
+  
   <div id="app">
+    <NavBar/>
     <img alt="Vue logo" src="./assets/logo.png">
-    <Login msg="Doesnt work"/>
+    <Login/>
   </div>
 </template>
 
 <script>
 import Login from './components/Login.vue'
+import NavBar from './components/NavBar.vue'
 
 export default {
   name: 'App',
   components: {
-    Login
+    Login,
+    NavBar
   }
 }
 </script>
