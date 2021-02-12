@@ -1,5 +1,5 @@
 {
-  "name": "vue-frontend",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
-    "webpack-bundle-tracker": "^1.0.0-alpha.1"
+    "webpack-bundle-tracker": "^0.4.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
