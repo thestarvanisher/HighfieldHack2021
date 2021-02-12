@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from HighfieldHack2021.apps.core.models import Debate, DebateTextArgument, DebateVote, ChoiceVote, Choice, Poll
+from HighfieldHack2021.apps.core.models import Debate, DebateTextArgument, DebateVote, PollChoiceVote, PollChoice, Poll
 
 
 class VoteSerializer(serializers.ModelSerializer):
@@ -28,7 +28,7 @@ class DebateSerializer(serializers.ModelSerializer):
 
 class ChoiceVoteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ChoiceVote
+        model = PollChoiceVote
         fields = "__all__"
 
 
@@ -36,7 +36,7 @@ class ChoiceSerializer(serializers.ModelSerializer):
     choice_votes = ChoiceVoteSerializer(many=True)
 
     class Meta:
-        model = Choice
+        model = PollChoice
         fields = ("title", "choice_votes")
         read_only_fields = ("choice_votes",)
 

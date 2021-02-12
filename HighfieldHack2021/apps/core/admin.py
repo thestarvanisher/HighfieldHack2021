@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from HighfieldHack2021.apps.core.models import Debate, DebateTextArgument, DebateVote, Poll, ChoiceVote, Choice
+from HighfieldHack2021.apps.core.models import Debate, DebateTextArgument, DebateVote, Poll, PollChoiceVote, PollChoice
 
 
 class DebateAdmin(admin.ModelAdmin):
@@ -25,19 +25,25 @@ class DebateVoteAdmin(admin.ModelAdmin):
     search_fields = ("debate", "owner")
 
 
+class PollChoiceInline(admin.StackedInline):
+    model = PollChoice
+    extra = 2
+
+
 class PollAdmin(DebateAdmin):
     model = Poll
+    inlines = [PollChoiceInline]
 
 
-class ChoiceAdmin(admin.ModelAdmin):
+class PollChoiceAdmin(admin.ModelAdmin):
     model = DebateTextArgument
     list_display = ("title", "poll")
     list_filter = ("title", "poll")
     search_fields = ("title", "poll")
 
 
-class ChoiceVoteAdmin(admin.ModelAdmin):
-    model = DebateTextArgument
+class PollChoiceVoteAdmin(admin.ModelAdmin):
+    model = PollChoiceVote
     list_display = ("choice", "owner")
     list_filter = ("choice", "owner")
     search_fields = ("choice", "owner")
@@ -48,5 +54,5 @@ admin.site.register(DebateTextArgument, DebateTextArgumentAdmin)
 admin.site.register(DebateVote, DebateVoteAdmin)
 
 admin.site.register(Poll, PollAdmin)
-admin.site.register(Choice, ChoiceAdmin)
-admin.site.register(ChoiceVote, ChoiceVoteAdmin)
+admin.site.register(PollChoice, PollChoiceAdmin)
+admin.site.register(PollChoiceVote, PollChoiceVoteAdmin)

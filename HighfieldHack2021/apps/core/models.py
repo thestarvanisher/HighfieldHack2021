@@ -1,16 +1,14 @@
 from django.conf import settings
 from django.db import models
 
+
 # Create your models here.
-from HighfieldHack2021.apps.core.helpers import date_in_future
-
-
 class Debate(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     posted_at = models.DateTimeField(auto_now=True)
-    expires_at = models.DateTimeField(validators=[date_in_future])
+    expires_at = models.DateTimeField()
 
 
 class DebateTextArgument(models.Model):
@@ -28,7 +26,7 @@ class Poll(Debate):
     pass
 
 
-class Choice(models.Model):
+class PollChoice(models.Model):
     title = models.CharField(max_length=50)
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name="choices")
 
@@ -36,8 +34,9 @@ class Choice(models.Model):
         unique_together = ("title", "poll")
 
 
-class ChoiceVote(models.Model):
-    choice = models.ForeignKey(Choice, on_delete=models.CASCADE, related_name="choice_votes")
+class PollChoiceVote(models.Model):
+    choice = models.ForeignKey(PollChoice, on_delete=models.CASCADE, related_name="choice_votes")
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ("choice", "owner")
