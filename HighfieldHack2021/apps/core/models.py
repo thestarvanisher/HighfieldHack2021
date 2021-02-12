@@ -8,7 +8,7 @@ class Debate(models.Model):
     description = models.TextField()
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     posted_at = models.DateTimeField(auto_now=True)
-    expires_at = models.DateTimeField(auto_now=True)
+    expires_at = models.DateTimeField()
 
 
 class TextArgument(models.Model):
