@@ -25,6 +25,7 @@ SECRET_KEY = "4!_%oe32$w*tum(om5mej*-+!d*z%&u#y)6k2#-*jw!h1w=v&a"
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    "127.0.0.1",
     "localhost",
     "highfieldhack.tk",
 ]
