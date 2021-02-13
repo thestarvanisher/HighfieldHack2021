@@ -29,7 +29,9 @@ class Poll(Debate):
 class PollChoice(models.Model):
     title = models.CharField(max_length=50)
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name="choices")
-
+    expires_at = models.DateTimeField()
+    description = models.TextField()
+    
     class Meta:
         unique_together = ("title", "poll")
 

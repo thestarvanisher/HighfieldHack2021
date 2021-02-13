@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 from django.shortcuts import redirect, render, get_object_or_404
 
+from django.forms.models import BaseInlineFormSet
 from HighfieldHack2021.apps.core.models import Poll, PollChoice, Debate
 from HighfieldHack2021.apps.debates.forms import DebateForm
 from HighfieldHack2021.apps.debates.helpers import get_page, get_objects
@@ -10,7 +11,7 @@ from HighfieldHack2021.apps.debates.helpers import get_page, get_objects
 
 def create(request, Form):
     if request.method == "POST":
-        form = Form(request.POST)
+        form = Form(data=request.POST)
 
         if form.is_valid():
             form = form.save(commit=False)
@@ -27,7 +28,9 @@ def create(request, Form):
 def create_debate(request):
     form = create(request, DebateForm)
 
-    if form is not None:
+    print(form)
+
+    if form is None:
         return redirect("/")
 
     context = {
@@ -39,9 +42,9 @@ def create_debate(request):
 
 @login_required
 def create_poll(request):
-    form = create(request, inlineformset_factory(Poll, PollChoice))
+    form = create(request, inlineformset_factory(Poll, PollChoice, formset=BaseInlineFormSet))
 
-    if form is not None:
+    if form is None:
         return redirect("/")
 
     context = {
@@ -55,7 +58,7 @@ def create_poll(request):
 def view_debates(request):
     page = get_page(request)
 
-    debates = get_objects(Debate, page)
+    debates,_ = get_objects(Debate, page)
 
     context = {
         "debates": debates

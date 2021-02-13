@@ -1,0 +1,12 @@
+#wrapper {
+  text-align: center;
+  padding-top: 10%;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+.cell {
+	width: 33%;
+	height: 5vh;
+	background-color: #c1c1c1;
+	border-radius: 25%;
+}
