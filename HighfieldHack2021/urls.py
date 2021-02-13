@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 
 from HighfieldHack2021.apps.core import views
 
@@ -23,7 +24,6 @@ urlpatterns = [
     path("login/", views.login),
     path("logout/", views.logout),
     path("api/", include("HighfieldHack2021.apps.api.urls")),
-    path("/", include("HighfieldHack2021.apps.debates.urls")),
-    path("", include("HighfieldHack2021.apps.debates.urls")),
-    path("create/", include("HighfieldHack2021.apps.debates.urls")),
+    path("debates/", include("HighfieldHack2021.apps.debates.urls")),
+    path("", RedirectView.as_view(url="/debates/")),
 ]
