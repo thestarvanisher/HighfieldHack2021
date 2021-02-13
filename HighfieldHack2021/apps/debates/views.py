@@ -103,5 +103,4 @@ def view_index(request):
     context = {
         "user": request.user
     }
-
     return render(request, "index.html", context=context)

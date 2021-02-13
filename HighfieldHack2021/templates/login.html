@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{% static 'loginstyle.css' %}">
 
 <div id="loginwrapper">
-	<form action="/login/" method="post">
+	<form action="/login/" method="post" enctype="multipart/form-data">
 	    {% csrf_token %}
 	    {{ form.as_p }}
 	    <input type="submit" value="Submit" id="submit">
