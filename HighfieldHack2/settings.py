@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "HighfieldHack2.apps.debates",
     "bulma",
     "bulma_widget",
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -78,7 +79,19 @@ TEMPLATES = [
     },
 ]
 
+# Channels backend setup
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('localhost', 6379)],
+        }
+    }
+}
+
 WSGI_APPLICATION = "HighfieldHack2.wsgi.application"
+
+ASGI_APPLICATION = "HighfieldHack2.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

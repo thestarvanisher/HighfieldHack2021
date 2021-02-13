@@ -31,13 +31,13 @@
 
 {% block script %}
 <script>
-    var socket = new WebSocket("ws://" + window.location.host + "/debate/");
+    var socket = new WebSocket("ws://" + window.location.host + "/debates/");
 
     socket.onopen = function open() {
         console.log("WebSocket connection created");
     };
 
-    socket.onmessage = function.message(event) {
+    socket.onmessage = function message(event) {
         var newDebate = JSON.parse(event.data);
 
         var debateID = encodeURI(newDebate["id"]);
