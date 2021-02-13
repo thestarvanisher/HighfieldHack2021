@@ -6,3 +6,5 @@ django-webpack-loader==0.6.0
 djangorestframework==3.12.2
 pytz==2021.1
 sqlparse==0.4.1
+channels==3.0.3
+asgi_redis==1.0.0
