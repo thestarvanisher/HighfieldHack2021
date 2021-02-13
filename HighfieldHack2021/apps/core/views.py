@@ -13,13 +13,9 @@ def login(request, next_page="/"):
     if request.method == "POST":
         form = AuthenticationForm(request=request, data=request.POST)
 
-        print(form.is_valid())
-
         if form.is_valid():
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
-
-            print(user, password)
 
             user = authenticate(username=username, password=password)
 
@@ -44,8 +40,8 @@ def login(request, next_page="/"):
 
 @login_required
 def logout(request):
-    #django_logout(request)
-    return redirect("")
+    django_logout(request)
+    return redirect("/")
 
 def index(request):
     return render(request, "index.html")

@@ -9,9 +9,7 @@
   <div>
   </div>
   <div v-if="username" class="log-link">
-    <div>{{ username }}</div>
     <a href="/logout/">Logout</a>
-    }
   </div>
   <div v-else id="login" class="log-link">
     <a href="/login/">Login</a>
