@@ -4,7 +4,9 @@ from django.shortcuts import redirect, render, get_object_or_404
 
 from HighfieldHack2.apps.core.models import Debate, DebateTextArgument
 from HighfieldHack2.apps.debates.forms import DebateForm, DebateTextArgumentForm
-
+from HighfieldHack2.my_channels.consumers import DebateConsumer
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 @login_required
 def create_debate(request):
@@ -16,6 +18,17 @@ def create_debate(request):
 
             form.owner = request.user
             form.save()
+
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)(
+                'event_senddebate',
+                {
+                    'type': 'sendDebate',
+                    'id': form.id,
+                    'desc': form.description,
+                    'title': form.title
+                }
+            ) 
 
             return redirect("/")
     else:

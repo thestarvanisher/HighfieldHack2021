@@ -43,7 +43,7 @@
         var debateID = encodeURI(newDebate["id"]);
         var debateTitle = encodeURI(newDebate["title"]);
         var debateDesc = encodeURI(newDebate["description"]);
-        var debateEntry = document.fromString('<div class="column is-4">\
+        var debateEntry = '<div class="column is-4">\
                         <div class="card large">\
                             <div class="card-content">\
                                 <div class="media">\
@@ -57,8 +57,8 @@
                                 </div>\
                             </div>\
                         </div>\
-                    </div>');
-        document.getElementById("debateholder").appendChild(debateEntry);
+                    </div>'.replace("${debateDesc}", debateDesc).replace("${debateID}", debateID).replace("${debateTitle}", debateTitle);
+        document.getElementById("debateholder").innerHTML = debateEntry + document.getElementById("debateholder").innerHTML;
     }
 </script>
 {% endblock %}
