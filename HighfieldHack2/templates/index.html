@@ -40,9 +40,10 @@
     socket.onmessage = function message(event) {
         var newDebate = JSON.parse(event.data);
 
-        var debateID = encodeURI(newDebate["id"]);
-        var debateTitle = encodeURI(newDebate["title"]);
-        var debateDesc = encodeURI(newDebate["description"]);
+        var debateID = newDebate["id"];
+        var debateTitle = newDebate["title"];
+        var debateDesc = newDebate["description"];
+        console.log(debateTitle);
         var debateEntry = '<div class="column is-4">\
                         <div class="card large">\
                             <div class="card-content">\
