@@ -1,12 +1,25 @@
 #wrapper {
   text-align: center;
-  padding-top: 10%;
   font-family: Avenir, Helvetica, Arial, sans-serif;
+  padding: 5%;
+  padding-top: 10%;
 }
 
 .cell {
 	width: 33%;
-	height: 5vh;
+	height: 30vh;
 	background-color: #c1c1c1;
 	border-radius: 25%;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.6);
+	text-align: center;
+	font-family: 'Montserrat', sans-serif;
+	padding-top: 2%;
+}
+
+#cell p {
+	font-weight: 800;
+}
+
+#expiration{
+	margin-top: 50%;
 }

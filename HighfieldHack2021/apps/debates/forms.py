@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.widgets import DateTimeInput
 
 from HighfieldHack2021.apps.core.models import Debate, Poll, PollChoice, PollChoiceVote, DebateTextArgument
 
@@ -7,6 +8,9 @@ class DebateForm(forms.ModelForm):
     class Meta:
         model = Debate
         fields = ("title", "description", "expires_at")
+        widgets = {
+            "expires_at": DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
         
 
 

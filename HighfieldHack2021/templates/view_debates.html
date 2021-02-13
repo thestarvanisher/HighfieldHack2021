@@ -6,11 +6,15 @@
 <link rel="stylesheet" href="{% static 'dviewstyle.css' %}">
 
 
-{{debates.count}}
 <div id=wrapper>
 {% for i in debates.object_list %}
 	<div class=cell>
-		{{i.title}}
+	<p>
+		<b>{{i.title}}</b>
+	</p>
+	<p id="expiration">
+		<i>Expires on: {{i.expires_at}}</i>
+	</p>
 	</div>
 {%endfor%}
 </div>

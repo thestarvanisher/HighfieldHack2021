@@ -6,7 +6,8 @@
   <div v-else id="logo">
    <img v-bind:src="logoImg" alt="Logo" />
   </div>
-  <div>
+  <div id="create-link">
+    <a href="/debates/create">Create debate</a>
   </div>
   <div v-if="username" class="log-link">
     <a href="/logout/">Logout</a>
@@ -38,10 +39,14 @@ nav {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
 }
 
+#create-link {
+  padding-left: 40%;
+}
+
 .log-link {
   float: right;
   clear: right;
-  margin-left: 65%;
+  margin-left: 10%;
 }
 a {
   color: inherit;
@@ -56,5 +61,6 @@ div#logo {
   font-size: 2rem;
   float: left;
   margin-left: 5%;
+  text-shadow: 4px 4px rgba(0,0,0,1);
 }
 </style>

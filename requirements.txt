@@ -5,4 +5,4 @@ sqlparse==0.4.1
 
 djangorestframework~=3.12.2
 django-webpack-loader==0.6.0
-django-datetime-widget==0.9.3
+django-bootstrap3-datetimepicker==2.2.3

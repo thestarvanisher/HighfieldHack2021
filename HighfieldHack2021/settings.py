@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "webpack_loader",
     "HighfieldHack2021.apps.core",
     "HighfieldHack2021.apps.api",
+    'django.forms.widgets',
 ]
 
 MIDDLEWARE = [
