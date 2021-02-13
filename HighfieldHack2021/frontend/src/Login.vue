@@ -1,7 +1,5 @@
 <template>
-  
   <div id="app">
-    <NavBar name="Debating Station"/>
     <div id="movedown">
       <img alt="Vue logo" src="./assets/logo.png">
       <Login/>
@@ -12,13 +10,11 @@
 
 <script>
 import Login from './components/Login.vue'
-import NavBar from './components/NavBar.vue'
 
 export default {
   name: 'App',
   components: {
-    Login,
-    NavBar
+    Login
   }
 }
 </script>

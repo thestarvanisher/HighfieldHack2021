@@ -8,7 +8,7 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>The Debatorium</title>
   </head>
-  <body style="margin:0;" class="apphandle">
+  <body style="margin:0;">
     <noscript>
       <strong>
         We're sorry but frontend doesn't work
@@ -16,6 +16,11 @@
         Please enable it to continue.
       </strong>
     </noscript>
+
+    <div id='apphandle'>
+  		<custom-navbar name="The Debatorium"/>
+  	</div>
+    {% render_bundle 'navbar' %}
 
     {% block content %}
     {% endblock %}

@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <form>
+        <form method="post">
             <h3>Sign In</h3>
 
             <div class="form-group">

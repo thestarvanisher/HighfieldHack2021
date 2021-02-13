@@ -1,11 +1,16 @@
 {% extends "base.html" %}
-{% load render_bundle from webpack_loader %}
+{% load static %}
 
 {% block content %}
-<div id="app">
-      <app></app>
-    </div>
 
+<link rel="stylesheet" href="{% static 'loginstyle.css' %}">
 
-{% render_bundle 'login' %}
+<div id="loginwrapper">
+	<form action="/login/" method="post">
+	    {% csrf_token %}
+	    {{ form }}
+	    <input type="submit" value="Submit" id="submit">
+	</form>
+</div>
+
 {% endblock %}
