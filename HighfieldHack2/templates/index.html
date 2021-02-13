@@ -6,7 +6,7 @@
     <section class="section">
         <div class="container">
             <h1 class="title">Debates <a class="button is-link" href="create/">Create</a></h1>
-            <div class="row columns is-multiline">
+            <div class="row columns is-multiline" id="debateholder">
                 {% for debate in debates %}
                     <div class="column is-4">
                         <div class="card large">
@@ -27,4 +27,38 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block script %}
+<script>
+    var socket = new WebSocket("ws://" + window.location.host + "/debate/");
+
+    socket.onopen = function open() {
+        console.log("WebSocket connection created");
+    };
+
+    socket.onmessage = function.message(event) {
+        var newDebate = JSON.parse(event.data);
+
+        var debateID = encodeURI(newDebate["id"]);
+        var debateTitle = encodeURI(newDebate["title"]);
+        var debateDesc = encodeURI(newDebate["description"]);
+        var debateEntry = document.fromString('<div class="column is-4">\
+                        <div class="card large">\
+                            <div class="card-content">\
+                                <div class="media">\
+                                    <div class="media-content">\
+                                        <a class="title is-4 no-padding"\
+                                           href="view/${debateID}">${debateTitle}</a>\
+                                    </div>\
+                                </div>\
+                                <div class="content">\
+                                    ${debateDesc}\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>');
+        document.getElementById("debateholder").appendChild(debateEntry);
+    }
+</script>
 {% endblock %}
