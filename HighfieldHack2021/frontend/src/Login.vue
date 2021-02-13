@@ -2,8 +2,11 @@
   
   <div id="app">
     <NavBar name="Debating Station"/>
-    <img alt="Vue logo" src="./assets/logo.png">
-    <Login/>
+    <div id="movedown">
+      <img alt="Vue logo" src="./assets/logo.png">
+      <Login/>
+    </div>
+    
   </div>
 </template>
 
@@ -27,6 +30,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+#movedown {
+  padding-top: 10vh;
 }
 
 </style>

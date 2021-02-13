@@ -24,4 +24,5 @@ urlpatterns = [
     path("logout/", views.logout),
     path("api/", include("HighfieldHack2021.apps.api.urls")),
     path("/", include("HighfieldHack2021.apps.debates.urls")),
+    path("", include("HighfieldHack2021.apps.debates.urls")),
 ]

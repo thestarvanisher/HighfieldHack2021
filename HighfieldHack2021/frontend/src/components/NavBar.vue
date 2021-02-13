@@ -16,20 +16,23 @@
 
 <script>
 export default {
-	name: 'Navbar',
-	props: ['name', 'logoImg'],
-	methods: {},
-	mounted() {},
+  name: 'Navbar',
+  props: ['name', 'logoImg'],
+  methods: {},
+  mounted() {},
 }
 </script>
 
 <style scoped>
 nav {
-display: flex;
-align-items: center;
-background-color: #8edc87;
-min-height: 8vh;
-font-family: 'Montserrat', sans-serif;
+	width: 100%;
+	position: fixed;
+  display: flex;
+  align-items: center;
+  background-color: #8edc87;
+  min-height: 10vh;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
 }
 
 #login {
