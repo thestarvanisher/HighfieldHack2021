@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 from django.shortcuts import redirect, render, get_object_or_404
 
-from HighfieldHack2.apps.core.models import Debate
+from HighfieldHack2.apps.core.models import Debate, DebateTextArgument
 from HighfieldHack2.apps.debates.forms import DebateForm, DebateTextArgumentForm
 
 
@@ -32,8 +32,12 @@ def create_debate(request):
 def view_debate(request, pk=None):
     debate = get_object_or_404(Debate, pk=pk)
 
+    relevant_arguments = DebateTextArgument.objects.all().filter(debate=debate)
+
     context = {
-        "debate": debate
+        "debate": debate,
+        "arguments_for": relevant_arguments.filter(is_for=True),
+        "arguments_against": relevant_arguments.filter(is_for=False)
     }
 
     return render(request, "view_debate.html", context=context)

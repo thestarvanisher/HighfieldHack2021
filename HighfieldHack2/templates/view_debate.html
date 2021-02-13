@@ -37,12 +37,21 @@
                                 For
                             </p>
                         </header>
-                        <div class="card-content">
-                            ARGUMENT 1
-                        </div>
-                        <div class="card-content">
-                            ARGUMENT 2
-                        </div>
+
+                        {% for argument in arguments_for %}
+                            <div class="card-content">
+                                <div class="card">
+                                    <header class="card-header">
+                                        <p class="card-header-title is-centered">
+                                            {{ argument.title }}
+                                        </p>
+                                    </header>
+                                    <div class="card-content">
+                                        {{ argument.description }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
 
                         <div class="card-content">
                             <a class="button is-link" href="create_arg/1/">Create</a>
@@ -56,12 +65,21 @@
                                 Against
                             </p>
                         </header>
-                        <div class="card-content">
-                            ARGUMENT 1
-                        </div>
-                        <div class="card-content">
-                            ARGUMENT 2
-                        </div>
+
+                        {% for argument in arguments_against %}
+                            <div class="card-content">
+                                <div class="card">
+                                    <header class="card-header">
+                                        <p class="card-header-title is-centered">
+                                            {{ argument.title }}
+                                        </p>
+                                    </header>
+                                    <div class="card-content">
+                                        {{ argument.description }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
 
                         <div class="card-content">
                             <a class="button is-link" href="create_arg/0/">Create</a>

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "webpack_loader",
     "HighfieldHack2.apps.core",
     "HighfieldHack2.apps.api",
+    "HighfieldHack2.apps.debates",
     "bulma",
     "bulma_widget",
 ]
