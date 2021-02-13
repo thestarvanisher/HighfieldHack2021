@@ -25,4 +25,5 @@ urlpatterns = [
     path("api/", include("HighfieldHack2021.apps.api.urls")),
     path("/", include("HighfieldHack2021.apps.debates.urls")),
     path("", include("HighfieldHack2021.apps.debates.urls")),
+    path("create/", include("HighfieldHack2021.apps.debates.urls")),
 ]
