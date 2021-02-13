@@ -23,7 +23,6 @@ module.exports = {
     },
     pages: {
         index: 'src/main.js',
-        login: 'src/login.js',
         navbar: 'src/NavBar.js'
     },
     runtimeCompiler: true
