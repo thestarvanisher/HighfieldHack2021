@@ -1,0 +1,43 @@
+h3 {
+  margin: 40px 0 0;
+  padding: 10px;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+label {
+    padding: 10px;
+}
+input {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+#submit {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  font-size: 16px;
+  border-radius: 25%;
+  width: 25%;
+}
+
+#loginwrapper {
+  text-align: center;
+  padding-top: 10%;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}

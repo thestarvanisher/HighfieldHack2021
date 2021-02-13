@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load bulma_tags %}
+{% load static %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Debates <a class="button is-link" href="create/">Create</a></h1>
+            <div class="row columns is-multiline">
+                {% for debate in debates %}
+                    <div class="column is-4">
+                        <div class="card large">
+                            <div class="card-content">
+                                <div class="media">
+                                    <div class="media-content">
+                                        <a class="title is-4 no-padding"
+                                           href="view/{{ debate.id }}">{{ debate.title }}</a>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    {{ debate.description }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

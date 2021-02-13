@@ -1,0 +1,8 @@
+asgiref==3.3.1
+Django==3.1.6
+django-bulma==0.8.1
+django-bulma-widget==1.1
+django-webpack-loader==0.6.0
+djangorestframework==3.12.2
+pytz==2021.1
+sqlparse==0.4.1

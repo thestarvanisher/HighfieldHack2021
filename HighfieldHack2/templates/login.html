@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load bulma_tags %}
+{% load static %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Login</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ form | bulma }}
+                <input class="button is-primary" type="submit" value="Submit">
+            </form>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load bulma_tags %}
+{% load static %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <h1 class="title">View Debate</h1>
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <h1 class="title is-4">{{ debate.title }}</h1>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <p>{{ debate.description }}</p>
+                    </div>
+
+                    <footer class="card-footer">
+                        <div class="card-footer-item">
+                            <time>Expires {{ debate.expires_at }}</time>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-half-desktop">
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title is-centered">
+                                For
+                            </p>
+                        </header>
+                        <div class="card-content">
+                            ARGUMENT 1
+                        </div>
+                        <div class="card-content">
+                            ARGUMENT 2
+                        </div>
+
+                        <div class="card-content">
+                            <a class="button is-link" href="create_arg/1/">Create</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-half-desktop">
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title is-centered">
+                                Against
+                            </p>
+                        </header>
+                        <div class="card-content">
+                            ARGUMENT 1
+                        </div>
+                        <div class="card-content">
+                            ARGUMENT 2
+                        </div>
+
+                        <div class="card-content">
+                            <a class="button is-link" href="create_arg/0/">Create</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
