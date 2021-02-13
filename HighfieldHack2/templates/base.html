@@ -1,3 +1,4 @@
+{% load bulma_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,9 @@
 </head>
 
 <body>
+{% if back %}
+<a class="button" href={{back}}>Back</a>
+{%endif%}
 {% block content %}
 {% endblock %}
 </body>

@@ -22,7 +22,8 @@ def create_debate(request):
         form = DebateForm()
 
     context = {
-        "form": form
+        "form": form,
+        "back": "/debates/"
     }
 
     return render(request, "create_debate.html", context=context)
@@ -37,7 +38,8 @@ def view_debate(request, pk=None):
     context = {
         "debate": debate,
         "arguments_for": relevant_arguments.filter(is_for=True),
-        "arguments_against": relevant_arguments.filter(is_for=False)
+        "arguments_against": relevant_arguments.filter(is_for=False),
+        "back": "/debates/"
     }
 
     return render(request, "view_debate.html", context=context)
@@ -72,7 +74,7 @@ def create_argument(request, pk=None, is_for=None):
 
             form.save()
 
-            return redirect("/")
+            return redirect("/debates/view/{}/".format(pk))
     else:
         form = DebateTextArgumentForm()
 
@@ -80,7 +82,8 @@ def create_argument(request, pk=None, is_for=None):
 
     context = {
         "debate": debate,
-        "form": form
+        "form": form,
+        "back": "/debates/view/{}/".format(pk)
     }
 
     return render(request, "add_argument.html", context=context)
