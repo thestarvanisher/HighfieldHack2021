@@ -1,14 +1,17 @@
 <template>
  <nav>
   <div v-if="name" id="logo">
-         {{ name }}
+         <a href="/">{{ name }}</a>
       </div>
   <div v-else id="logo">
    <img v-bind:src="logoImg" alt="Logo" />
   </div>
   <div>
   </div>
-  <div id="login">
+  <div v-if="username" class="log-link">
+    <a href="/logout/">Logout</a>
+  </div>
+  <div v-else id="login" class="log-link">
     <a href="/login/">Login</a>
   </div>
  </nav>
@@ -17,7 +20,7 @@
 <script>
 export default {
   name: 'Navbar',
-  props: ['name', 'logoImg'],
+  props: ['name', 'logoImg', 'username'],
   methods: {},
   mounted() {},
 }
@@ -35,7 +38,7 @@ nav {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
 }
 
-#login {
+.log-link {
   float: right;
   clear: right;
   margin-left: 65%;

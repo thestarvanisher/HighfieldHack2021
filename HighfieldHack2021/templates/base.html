@@ -18,7 +18,12 @@
     </noscript>
 
     <div id='apphandle'>
+    	{% if user.is_authenticated %}
+    	<custom-navbar name="The Debatorium" username={{user}}/>
+  		{% else %}
   		<custom-navbar name="The Debatorium"/>
+  		{% endif %}
+    	}
   	</div>
     {% render_bundle 'navbar' %}
 

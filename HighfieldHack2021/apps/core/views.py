@@ -10,7 +10,6 @@ def login(request, next_page="/"):
     if request.user.is_authenticated:
         return redirect(next_page)
 
-    print(request.method)
     if request.method == "POST":
         form = AuthenticationForm(request=request, data=request.POST)
 
