@@ -1,11 +1,13 @@
 import json
-from channels.generic.websocket import WebsocketConsumer
+
 from asgiref.sync import async_to_sync
+from channels.generic.websocket import WebsocketConsumer
+
 
 class DebateConsumer(WebsocketConsumer):
     def connect(self):
         self.room_name = 'event'
-        self.room_group_name = self.room_name+"_senddebate"
+        self.room_group_name = self.room_name + "_senddebate"
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
             self.channel_name
@@ -38,11 +40,12 @@ class DebateConsumer(WebsocketConsumer):
             'description': event['desc']
         }))
 
+
 class ArgumentConsumer(WebsocketConsumer):
     def connect(self):
         print("###Connect###")
         self.room_name = 'event'
-        self.room_group_name = self.room_name+"_sendarg"
+        self.room_group_name = self.room_name + "_sendarg"
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
             self.channel_name

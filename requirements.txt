@@ -58,6 +58,7 @@ regex==2020.11.13
 requests==2.25.1
 scipy==1.5.4
 service-identity==18.1.0
+six==1.15.0
 smart-open==4.1.2
 spacy==3.0.2
 spacy-legacy==3.0.1
