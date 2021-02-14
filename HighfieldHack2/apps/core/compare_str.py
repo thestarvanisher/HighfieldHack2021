@@ -293,4 +293,7 @@ class CompareStrings:
         t1 = word_tokenize(target.lower())
         t2 = word_tokenize(old.lower())
 
-        return self.model.wv.n_similarity(t1, t2)
+        try:
+            return self.model.wv.n_similarity(t1, t2)
+        except:
+            return 0.0 
