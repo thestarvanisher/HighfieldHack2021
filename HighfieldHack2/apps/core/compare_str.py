@@ -1,7 +1,6 @@
 import spacy
-import nltk
-from nltk.corpus import wordnet
 from gensim.models.doc2vec import Doc2Vec
+from nltk.corpus import wordnet
 from nltk.tokenize import word_tokenize
 
 
@@ -24,15 +23,15 @@ class Node:
         self.children = []
         self.is_negated = False
 
-
     def addChild(self, node):
         self.children.append(node)
 
     def getData(self):
         return self.val
-    
+
     def getChildren(self):
         return self.children
+
 
 class Tree:
     '''
@@ -41,13 +40,13 @@ class Tree:
 
     root = None
     weights = {
-        "root":6.0, #0.9,
-        "root_aux":5.0, #30.5,
+        "root": 6.0,  # 0.9,
+        "root_aux": 5.0,  # 30.5,
         "aux": 4.0,
-        "nsubj": 5.0, #0.8,
-        "dobj": 4.5, #0.7,
-        "advmod": 4.5,#0.7,
-        "acomp": 4.5, #0.7
+        "nsubj": 5.0,  # 0.8,
+        "dobj": 4.5,  # 0.7,
+        "advmod": 4.5,  # 0.7,
+        "acomp": 4.5,  # 0.7
         "amod": 2.0,
     }
 
@@ -58,7 +57,7 @@ class Tree:
         a = Node(val=token, weight=weight, is_root=False)
         node.addChild(a)
         return a
-    
+
     def addRoot(self, token, weight=5.0):
         self.root = Node(val=token, weight=weight, is_root=True)
         return self.root
@@ -101,30 +100,28 @@ class Tree:
             else:
                 return 0.0
 
-
-
     def buildChildren(self, token, parent):
-        
+
         w = self.getWeigth(token, parent)
-        
+
         n = self.addNode(token, parent, w)
 
         for i in n.getData().children:
             self.buildChildren(i, n)
-    
+
     def buildTree(self, token):
         root = token
         weight = 5.0
         if root.pos_ == "AUX":
             weight = 3.0
-        
+
         weight = self.getWeigth(root)
 
         n = self.addRoot(root, weight)
 
         for i in n.getData().children:
             self.buildChildren(i, n)
-    
+
     def printTree(self):
         print(self.getRoot().getData().text)
 
@@ -138,16 +135,15 @@ class Tree:
 
             for j in e.getChildren():
                 ls_new.append(j)
-            
+
             for s in ls_new:
                 print("(", s.getData().text, " ", s.weight, ")", end=", ")
-            
+
             print()
             print("--------------")
 
             ls_old = ls_new
             ls_new = []
-    
 
 
 class CompareStrings:
@@ -161,7 +157,7 @@ class CompareStrings:
         "root": 0.8,
         "verb": 0.7,
         "noun": 0.6,
-        }
+    }
 
     tree_new = None
     trees = []
@@ -173,7 +169,6 @@ class CompareStrings:
         self.tree = Tree()
         self.model = Doc2Vec.load("compare_model.model")
 
-
     def prepareTrees(self, target="", old=[]):
         s1 = self.nlp(target)
         rt = None
@@ -183,7 +178,6 @@ class CompareStrings:
                 break
         self.tree_new = Tree()
         self.tree_new.buildTree(rt)
-
 
         for j in old:
             s2 = self.nlp(j)
@@ -198,20 +192,20 @@ class CompareStrings:
             self.trees.append(tr)
 
     def compareStrings(self, target="", old=[]):
-        
+
         self.prepareTrees(target, old)
 
         self.tree_new.printTree()
 
-        res = [0.0]*len(old)
-        
+        res = [0.0] * len(old)
+
         for i in range(len(res)):
             res[i] += self.compareThroughModel(target, old[i])
-        
+
         res1 = []
         for j in self.trees:
             res1.append(self.compare(self.tree_new, j))
-        
+
         for i in range(len(res)):
             if res[i] > 0.66 and res[i] > res1[i]:
                 res[i] = res1[i]
@@ -220,10 +214,8 @@ class CompareStrings:
 
         return res
 
-
-
     def compare(self, target, old_t):
-        
+
         l1_old = []
         l1_new = []
         l2_old = []
@@ -252,10 +244,10 @@ class CompareStrings:
                 for j in s2.getChildren():
                     l2_new.append(j)
 
-            
             for i in l1_new:
                 for j in l2_new:
-                    if i.getData().dep_ == j.getData().dep_ or (i.getData().pos_ == "ADJ" and j.getData().pos_ == "ADJ"):
+                    if i.getData().dep_ == j.getData().dep_ or (
+                            i.getData().pos_ == "ADJ" and j.getData().pos_ == "ADJ"):
 
                         if len(wordnet.synsets(i.getData().text)) == 0 or len(wordnet.synsets(j.getData().text)) == 0:
                             continue
@@ -277,30 +269,28 @@ class CompareStrings:
                             w1 = i.weight
                         if j.weight != None:
                             w2 = j.weight
-                        
+
                         w = 0.0
 
                         if (i.is_negated and j.is_negated) or (i.is_negated == False and j.is_negated == False):
                             w = max(w1, w2)
                         else:
-                            w = 1/max(w1, w2)
+                            w = 1 / max(w1, w2)
                         cnt += max(w1, w2)
 
-                        score = score + similarity*w
+                        score = score + similarity * w
 
-            
             l1_old = l1_new
             l2_old = l2_new
             l1_new = []
             l2_new = []
-            
+
         score = score / cnt
 
         return score
-        
+
     def compareThroughModel(self, target, old):
         t1 = word_tokenize(target.lower())
         t2 = word_tokenize(old.lower())
 
-        return self.model.wv.n_similarity(t1,t2)
-        
+        return self.model.wv.n_similarity(t1, t2)
