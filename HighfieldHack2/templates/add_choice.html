@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load bulma_tags %}
+{% load static %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Add Choice</h1>
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <h1 class="title is-4">{{ poll.title }}</h1>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <p>{{ poll.description }}</p>
+                        <h1>Choices</h1>
+                        <div class="container">
+                            <ul>
+                                {% for choice in choices %}
+                                    <li>
+                                        {{ choice.title }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <div class="card-footer-item">
+                            <time>Expires {{ poll.expires_at }}</time>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr/>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Create Choice</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ form | bulma }}
+                <input class="button is-info" type="submit" value="Submit">
+            </form>
+        </div>
+    </section>
+{% endblock %}

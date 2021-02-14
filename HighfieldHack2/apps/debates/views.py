@@ -1,12 +1,11 @@
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
 from django.contrib.auth.decorators import login_required
-# Create your views here.
 from django.shortcuts import redirect, render, get_object_or_404
 
-from HighfieldHack2.apps.core.models import Debate, DebateTextArgument
-from HighfieldHack2.apps.debates.forms import DebateForm, DebateTextArgumentForm
-from HighfieldHack2.my_channels.consumers import DebateConsumer
-from channels.layers import get_channel_layer
-from asgiref.sync import async_to_sync
+from HighfieldHack2.apps.core.models import Debate, DebateTextArgument, Poll, PollChoice
+from HighfieldHack2.apps.debates.forms import DebateForm, DebateTextArgumentForm, PollForm, PollChoices
+
 
 @login_required
 def create_debate(request):
@@ -28,7 +27,7 @@ def create_debate(request):
                     'desc': form.description,
                     'title': form.title
                 }
-            ) 
+            )
 
             return redirect("/")
     else:
@@ -61,7 +60,8 @@ def view_debate(request, pk=None):
 @login_required
 def view_index(request):
     context = {
-        "debates": Debate.objects.order_by("-posted_at")
+        "debates": Debate.objects.order_by("-posted_at"),
+        "polls": Poll.objects.order_by("-posted_at")
     }
 
     return render(request, "index.html", context=context)
@@ -86,7 +86,7 @@ def create_argument(request, pk=None, is_for=None):
             form.debate = debate
 
             form.save()
-            
+
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)(
                 'event_sendarg',
@@ -99,7 +99,7 @@ def create_argument(request, pk=None, is_for=None):
                 }
             )
 
-            return redirect("/debates/view/{}/".format(pk))
+            return redirect("/debates/debate/view/{}/".format(pk))
     else:
         form = DebateTextArgumentForm()
 
@@ -108,7 +108,69 @@ def create_argument(request, pk=None, is_for=None):
     context = {
         "debate": debate,
         "form": form,
-        "back": "/debates/view/{}/".format(pk)
+        "back": "/debates/debate/view/{}/".format(pk)
     }
 
     return render(request, "add_argument.html", context=context)
+
+
+@login_required
+def create_poll(request):
+    if request.method == "POST":
+        form = PollForm(request.POST)
+
+        if form.is_valid():
+            form = form.save(commit=False)
+
+            form.owner = request.user
+            form.save()
+
+            return redirect("/")
+    else:
+        form = PollForm()
+
+    context = {
+        "form": form,
+        "back": "/"
+    }
+
+    return render(request, "create_poll.html", context=context)
+
+
+def create_poll_choice(request, pk=None):
+    poll = get_object_or_404(Poll, pk=pk)
+
+    if request.method == "POST":
+        form = PollChoices(request.POST)
+
+        if form.is_valid():
+            form = form.save(commit=False)
+
+            form.poll = poll
+
+            form.save()
+
+            return redirect(f"/debates/poll/view/{pk}/")
+    else:
+        form = PollChoices()
+
+    context = {
+        "poll": poll,
+        "choices": PollChoice.objects.all().filter(poll=poll),
+        "form": form,
+        "back": f"/debates/"
+    }
+
+    return render(request, "add_choice.html", context=context)
+
+
+def view_poll(request, pk=None):
+    poll = get_object_or_404(Poll, pk=pk)
+
+    context = {
+        "poll": poll,
+        "choices": PollChoice.objects.all().filter(poll=poll),
+        "back": f"/debates/"
+    }
+
+    return render(request, "view_poll.html", context=context)

@@ -5,7 +5,7 @@ from django.db import models
 # Create your models here.
 class Debate(models.Model):
     title = models.CharField(max_length=50)
-    description = models.TextField()
+    description = models.TextField(default="")
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     posted_at = models.DateTimeField(auto_now=True)
     expires_at = models.DateTimeField()
@@ -13,7 +13,7 @@ class Debate(models.Model):
 
 class DebateTextArgument(models.Model):
     title = models.CharField(max_length=50)
-    description = models.TextField()
+    description = models.TextField(default="")
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     is_for = models.BooleanField()
     debate = models.ForeignKey(Debate, on_delete=models.CASCADE, related_name="debate_arguments")
@@ -23,8 +23,12 @@ class DebateTextArgument(models.Model):
         unique_together = ("title", "debate")
 
 
-class Poll(Debate):
-    pass
+class Poll(models.Model):
+    title = models.CharField(max_length=50)
+    description = models.TextField(default="")
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    posted_at = models.DateTimeField(auto_now=True)
+    expires_at = models.DateTimeField()
 
 
 class PollChoice(models.Model):

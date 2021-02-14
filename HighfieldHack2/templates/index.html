@@ -5,7 +5,8 @@
 {% block content %}
     <section class="section">
         <div class="container">
-            <h1 class="title">Debates <a class="button is-link" href="create/">Create</a></h1>
+            <h1 class="title">Debates <a
+                    class="button is-link" href="create/debate">Create</a></h1>
             <div class="row columns is-multiline" id="debateholder">
                 {% for debate in debates %}
                     <div class="column is-4">
@@ -14,7 +15,7 @@
                                 <div class="media">
                                     <div class="media-content">
                                         <a class="title is-4 no-padding"
-                                           href="view/{{ debate.id }}">{{ debate.title }}</a>
+                                           href="debate/view/{{ debate.id }}">{{ debate.title }}</a>
                                     </div>
                                 </div>
                                 <div class="content">
@@ -27,24 +28,48 @@
             </div>
         </div>
     </section>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Polls <a class="button is-link" href="create/poll">Create</a></h1>
+            <div class="row columns is-multiline" id="debateholder">
+                {% for poll in polls %}
+                    <div class="column is-4">
+                        <div class="card large">
+                            <div class="card-content">
+                                <div class="media">
+                                    <div class="media-content">
+                                        <a class="title is-4 no-padding"
+                                           href="poll/view/{{ poll.id }}">{{ poll.title }}</a>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    {{ poll.description }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 {% endblock %}
 
 {% block script %}
-<script>
-    var socket = new WebSocket("ws://" + window.location.host + "/debates/");
+    <script>
+        var socket = new WebSocket("ws://" + window.location.host + "/debates/");
 
-    socket.onopen = function open() {
-        console.log("WebSocket connection created");
-    };
+        socket.onopen = function open() {
+            console.log("WebSocket connection created");
+        };
 
-    socket.onmessage = function message(event) {
-        var newDebate = JSON.parse(event.data);
+        socket.onmessage = function message(event) {
+            var newDebate = JSON.parse(event.data);
 
-        var debateID = newDebate["id"];
-        var debateTitle = newDebate["title"];
-        var debateDesc = newDebate["description"];
-        console.log(debateTitle);
-        var debateEntry = '<div class="column is-4">\
+            var debateID = newDebate["id"];
+            var debateTitle = newDebate["title"];
+            var debateDesc = newDebate["description"];
+            console.log(debateTitle);
+            var debateEntry = '<div class="column is-4">\
                         <div class="card large">\
                             <div class="card-content">\
                                 <div class="media">\
@@ -59,7 +84,7 @@
                             </div>\
                         </div>\
                     </div>'.replace("${debateDesc}", debateDesc).replace("${debateID}", debateID).replace("${debateTitle}", debateTitle);
-        document.getElementById("debateholder").innerHTML = debateEntry + document.getElementById("debateholder").innerHTML;
-    }
-</script>
+            document.getElementById("debateholder").innerHTML = debateEntry + document.getElementById("debateholder").innerHTML;
+        }
+    </script>
 {% endblock %}
