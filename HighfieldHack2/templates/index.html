@@ -75,7 +75,7 @@
                                 <div class="media">\
                                     <div class="media-content">\
                                         <a class="title is-4 no-padding"\
-                                           href="view/${debateID}">${debateTitle}</a>\
+                                           href="${subtype}/view/${debateID}">${debateTitle}</a>\
                                     </div>\
                                 </div>\
                                 <div class="content">\
@@ -83,10 +83,9 @@
                                 </div>\
                             </div>\
                         </div>\
-                    </div>'.replace("${debateDesc}", debateDesc).replace("${debateID}", debateID).replace("${debateTitle}", debateTitle);
+                    </div>'.replace("${debateDesc}", debateDesc).replace("${debateID}", debateID).replace("${debateTitle}", debateTitle).replace("${subtype}", newDebate["subtype"]);
 
             var type = newDebate["subtype"] == "poll" ? "pollholder" : "debateholder";
-            print(debateEntry);
             document.getElementById(type).innerHTML = debateEntry + document.getElementById("debateholder").innerHTML;
         }
     </script>
