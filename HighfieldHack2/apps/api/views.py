@@ -1,5 +1,6 @@
 # Create your views here.
 from django.forms import ModelForm
+from django.http import HttpResponse
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
@@ -86,3 +87,7 @@ def idfkanymore(request):
 
             form.owner = request.user
             form.save()
+
+            return HttpResponse(status=200)
+
+    return HttpResponse(status=500)
