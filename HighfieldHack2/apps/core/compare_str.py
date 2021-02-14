@@ -285,9 +285,11 @@ class CompareStrings:
             l1_new = []
             l2_new = []
 
-        score = score / cnt
-
-        return score
+        try:
+            score = score / cnt
+            return score
+        except:
+            return 1.0
 
     def compareThroughModel(self, target, old):
         t1 = word_tokenize(target.lower())
@@ -296,4 +298,4 @@ class CompareStrings:
         try:
             return self.model.wv.n_similarity(t1, t2)
         except:
-            return 0.0 
+            return 1.0 
