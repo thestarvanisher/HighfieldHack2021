@@ -86,6 +86,7 @@
                     </div>'.replace("${debateDesc}", debateDesc).replace("${debateID}", debateID).replace("${debateTitle}", debateTitle);
 
             var type = newDebate["subtype"] == "poll" ? "pollholder" : "debateholder";
+            print(debateEntry);
             document.getElementById(type).innerHTML = debateEntry + document.getElementById("debateholder").innerHTML;
         }
     </script>
