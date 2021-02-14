@@ -66,10 +66,17 @@
                 return;
 
             var argTitle = newArg["title"];
-
+            var argID = newArg['id'];
             var argEntry = '<li>\
+                            <p id="{{ choice.id }}">\
+                                1 vote(s)\
+                            </p>\
                             ${TITLE}\
-                        </li>'.replace("${TITLE}", argTitle);
+                            <button class="button is-success"\
+                                    onclick="add_vote(${ID})">\
+                                Vote\
+                            </button>\
+                        </li>'.replace("${TITLE}", argTitle).replace("${ID}", argID);
 
             document.getElementById("choice-box").innerHTML += argEntry;
         }

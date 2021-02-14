@@ -188,6 +188,7 @@ def create_poll_choice(request, pk=None):
                 {
                     'type': 'sendChoice',
                     'poll': poll.title,
+                    'id': poll.id,
                     'title': form.title
                 }
             )
