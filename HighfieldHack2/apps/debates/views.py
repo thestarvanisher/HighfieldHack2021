@@ -89,7 +89,16 @@ def create_argument(request, pk=None, is_for=None):
             for similarity in similarity_rating:
                 if similarity > 0.75:
                     messages.info(request, f"Your argument is very similar to a previous argument.")
-                    break
+
+                    form.fields["is_for"].initial = is_for
+
+                    context = {
+                        "debate": debate,
+                        "form": form,
+                        "back": f"/debates/debate/view/{pk}/"
+                    }
+
+                    return render(request, "add_argument.html", context=context)
 
             form.owner = request.user
             form.debate = debate
