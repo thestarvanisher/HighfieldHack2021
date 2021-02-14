@@ -32,7 +32,10 @@
                                     </li>
                                 {% endfor %}
                             </ul>
-                            <a class="button is-info" href="create_choice">Create</a>
+
+                            {% if request.user == poll.owner %}
+                                <a class="button is-info" href="create_choice">Create</a>
+                            {% endif %}
                         </div>
                     </div>
                     <footer class="card-footer">
