@@ -31,7 +31,7 @@
     <section class="section">
         <div class="container">
             <h1 class="title">Polls <a class="button is-link" href="create/poll">Create</a></h1>
-            <div class="row columns is-multiline" id="debateholder">
+            <div class="row columns is-multiline" id="pollholder">
                 {% for poll in polls %}
                     <div class="column is-4">
                         <div class="card large">
@@ -84,7 +84,9 @@
                             </div>\
                         </div>\
                     </div>'.replace("${debateDesc}", debateDesc).replace("${debateID}", debateID).replace("${debateTitle}", debateTitle);
-            document.getElementById("debateholder").innerHTML = debateEntry + document.getElementById("debateholder").innerHTML;
+
+            var type = newDebate["subtype"] == "poll" ? "pollholder" : "debateholder";
+            document.getElementById(type).innerHTML = debateEntry + document.getElementById("debateholder").innerHTML;
         }
     </script>
 {% endblock %}

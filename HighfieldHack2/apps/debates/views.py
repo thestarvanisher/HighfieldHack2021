@@ -25,6 +25,7 @@ def create_debate(request):
                 'event_senddebate',
                 {
                     'type': 'sendDebate',
+                    'subtype': 'debate',
                     'id': form.id,
                     'desc': form.description,
                     'title': form.title
@@ -132,6 +133,18 @@ def create_poll(request):
 
             form.owner = request.user
             form.save()
+
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)(
+                'event_senddebate',
+                {
+                    'type': 'sendDebate',
+                    'subtype': 'poll',
+                    'id': form.id,
+                    'desc': form.description,
+                    'title': form.title
+                }
+            )
 
             return redirect("/")
     else:

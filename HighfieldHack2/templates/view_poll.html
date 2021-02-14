@@ -40,7 +40,7 @@
 
 {% block script %}
 <script>
-var socket = new WebSocket("ws://" + window.location.host + "/polls/");
+var socket = new WebSocket("ws://" + window.location.host + "/poll/");
 
     socket.onopen = function open() {
         console.log("WebSocket connection created");

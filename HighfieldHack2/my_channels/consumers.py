@@ -35,6 +35,7 @@ class DebateConsumer(WebsocketConsumer):
     def sendDebate(self, event):
         print("###Event triggered###")
         self.send(text_data=json.dumps({
+            'subtype': event['subtype'],
             'id': event['id'],
             'title': event['title'],
             'description': event['desc']
