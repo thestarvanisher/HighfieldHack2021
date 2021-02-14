@@ -38,6 +38,7 @@
                             </p>
                         </header>
 
+                        <div id="for-list">
                         {% for argument in arguments_for %}
                             <div class="card-content">
                                 <div class="card">
@@ -52,7 +53,7 @@
                                 </div>
                             </div>
                         {% endfor %}
-
+                        </div>
                         <div class="card-content">
                             <a class="button is-link" href="create_arg/1/">Create</a>
                         </div>
@@ -66,6 +67,7 @@
                             </p>
                         </header>
 
+                        <div id="against-list">
                         {% for argument in arguments_against %}
                             <div class="card-content">
                                 <div class="card">
@@ -80,7 +82,7 @@
                                 </div>
                             </div>
                         {% endfor %}
-
+                        </div>
                         <div class="card-content">
                             <a class="button is-link" href="create_arg/0/">Create</a>
                         </div>
@@ -89,4 +91,39 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block script %}
+<script>
+    var socket = new WebSocket("ws://" + window.location.host + "/view/");
+
+    socket.onopen = function open() {
+        console.log("WebSocket connection created");
+    };
+
+    socket.onmessage = function message(event) {
+        var newArg = JSON.parse(event.data);
+
+        var argumentType = newArg["is_for"];
+        var id = newArg["id"];
+
+        var argTitle = newArg["title"];
+        var argDesc = newArg["description"];
+
+        var argEntry = '<div class="card-content">\
+                                <div class="card">\
+                                    <header class="card-header">\
+                                        <p class="card-header-title is-centered">\
+                                            ${TITLE}\
+                                        </p>\
+                                    </header>\
+                                    <div class="card-content">\
+                                        ${DESC}\
+                                    </div>\
+                                </div>\
+                            </div>'.replace("${TITLE}", argTitle).replace("${DESC}", argDesc);
+        var idToMatch = argumentType ? "for-list" : "against-list";
+        document.getElementById(idToMatch).innerHTML += argEntry;
+    }
+</script>
 {% endblock %}

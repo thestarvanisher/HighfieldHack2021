@@ -86,6 +86,18 @@ def create_argument(request, pk=None, is_for=None):
             form.debate = debate
 
             form.save()
+            
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)(
+                'event_sendarg',
+                {
+                    'type': 'sendArg',
+                    'is_for': form.is_for,
+                    'id': pk,
+                    'desc': form.description,
+                    'title': form.title
+                }
+            )
 
             return redirect("/debates/view/{}/".format(pk))
     else:
