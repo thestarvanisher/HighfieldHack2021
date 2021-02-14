@@ -1,9 +1,10 @@
 # Create your views here.
+from django.forms import ModelForm
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 from HighfieldHack2.apps.api.permissions import IsOwner
-from HighfieldHack2.apps.core.models import Debate
+from HighfieldHack2.apps.core.models import Debate, PollChoiceVote
 from HighfieldHack2.apps.core.serializers import DebateSerializer, ChoiceVoteSerializer
 
 
@@ -68,3 +69,20 @@ def queryset(request, Model):
     models = Model.objects.all()
 
     return models if user.is_staff else models.filter(owner=user.id)
+
+
+class PollChoiceVoteForm(ModelForm):
+    class Meta:
+        model = PollChoiceVote
+        fields = ("choice",)
+
+
+def idfkanymore(request):
+    if request.method == "POST":
+        form = PollChoiceVoteForm(request.POST)
+
+        if form.is_valid():
+            form = form.save(commit=False)
+
+            form.owner = request.user
+            form.save()
