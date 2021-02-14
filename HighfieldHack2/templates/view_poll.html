@@ -10,14 +10,14 @@
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content">
-                            <h1 class="title is-4">{{ poll.title }}</h1>
+                            <h1 class="title is-4" >{{ poll.title }}</h1>
                         </div>
                     </div>
                     <div class="content">
                         <p>{{ poll.description }}</p>
                         <h1>Choices</h1>
                         <div class="container">
-                            <ul>
+                            <ul id="choice-box">
                                 {% for choice in choices %}
                                     <li>
                                         {{ choice.title }}
@@ -36,4 +36,31 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block script %}
+<script>
+var socket = new WebSocket("ws://" + window.location.host + "/polls/");
+
+    socket.onopen = function open() {
+        console.log("WebSocket connection created");
+    };
+
+    socket.onmessage = function message(event) {
+        var newArg = JSON.parse(event.data);
+
+        var pollName = {{ poll.title }};
+
+        if(pollName != newArg["poll"])
+            return;
+
+        var argTitle = newArg["title"];
+
+        var argEntry = '<li>\
+                            ${TITLE}\
+                        </li>'.replace("${TITLE}", argTitle);
+
+        document.getElementById("choice-box").innerHTML += argEntry;
+    }
+</script>
 {% endblock %}

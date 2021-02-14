@@ -158,6 +158,16 @@ def create_poll_choice(request, pk=None):
 
             form.save()
 
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)(
+                'event_sendchoice',
+                {
+                    'type': 'sendChoice',
+                    'poll': poll.title,
+                    'title': form.title
+                }
+            )
+
             return redirect(f"/debates/poll/view/{pk}/")
     else:
         form = PollChoices()

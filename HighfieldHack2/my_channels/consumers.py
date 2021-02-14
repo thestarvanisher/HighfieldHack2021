@@ -80,3 +80,35 @@ class ArgumentConsumer(WebsocketConsumer):
             'title': event['title'],
             'description': event['desc']
         }))
+
+class PollConsumer(WebsocketConsumer):
+    def connect(self):
+        self.room_name = 'event'
+        self.room_group_name = self.room_name + "_sendchoice"
+        async_to_sync(self.channel_layer.group_add)(
+            self.room_group_name,
+            self.channel_name
+        )
+        self.accept()
+
+    def disconnect(self, close_code):
+        async_to_sync(self.channel_layer.group_discard)(
+            self.room_group_name,
+            self.channel_name
+        )
+
+    def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        name = text_data_json['poll']
+        title = text_data_json['title']
+
+        self.send(text_data=json.dumps({
+            "poll": name,
+            "title": title
+        }))
+
+    def sendChoice(self, event):
+        self.send(text_data=json.dumps({
+            'poll': event['poll'],
+            'title': event['title']
+        }))
