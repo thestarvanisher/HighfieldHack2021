@@ -73,9 +73,9 @@
 
             xhr.open("POST", "/api/votes/", true);
             xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
             xhr.send(JSON.stringify({
-                choice: this.id,
-                csrfmiddlewaretoken: "{{ csrf_token }}"
+                choice: this.id
             }));
 
             this.remove();
