@@ -3,8 +3,8 @@ from rest_framework import generics
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 from HighfieldHack2.apps.api.permissions import IsOwner
-from HighfieldHack2.apps.core.serializers import DebateSerializer
 from HighfieldHack2.apps.core.models import Debate
+from HighfieldHack2.apps.core.serializers import DebateSerializer, ChoiceVoteSerializer
 
 
 class CustomRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -43,6 +43,20 @@ class ArgumentList(CustomListCreateAPIView):
 
 class ArgumentDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DebateSerializer
+
+    def get_queryset(self):
+        return queryset(self.request, Debate)
+
+
+class VoteList(CustomListCreateAPIView):
+    serializer_class = ChoiceVoteSerializer
+
+    def get_queryset(self):
+        return queryset(self.request, Debate)
+
+
+class VoteDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ChoiceVoteSerializer
 
     def get_queryset(self):
         return queryset(self.request, Debate)

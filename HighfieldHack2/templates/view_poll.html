@@ -10,7 +10,7 @@
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content">
-                            <h1 class="title is-4" >{{ poll.title }}</h1>
+                            <h1 class="title is-4">{{ poll.title }}</h1>
                         </div>
                     </div>
                     <div class="content">
@@ -20,7 +20,12 @@
                             <ul id="choice-box">
                                 {% for choice in choices %}
                                     <li>
+                                        {{ choice.choice_votes.all | length }}
                                         {{ choice.title }}
+
+                                        <button id="{{ choice.id }}" class="button is-success" onclick="add_vote">
+                                            Vote
+                                        </button>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -39,28 +44,40 @@
 {% endblock %}
 
 {% block script %}
-<script>
-var socket = new WebSocket("ws://" + window.location.host + "/poll/");
+    <script>
+        var socket = new WebSocket("ws://" + window.location.host + "/poll/");
 
-    socket.onopen = function open() {
-        console.log("WebSocket connection created");
-    };
+        socket.onopen = function open() {
+            console.log("WebSocket connection created");
+        };
 
-    socket.onmessage = function message(event) {
-        var newArg = JSON.parse(event.data);
+        socket.onmessage = function message(event) {
+            var newArg = JSON.parse(event.data);
 
-        var pollName = "{{ poll.title }}";
+            var pollName = "{{ poll.title }}";
 
-        if(pollName != newArg["poll"])
-            return;
+            if (pollName != newArg["poll"])
+                return;
 
-        var argTitle = newArg["title"];
+            var argTitle = newArg["title"];
 
-        var argEntry = '<li>\
+            var argEntry = '<li>\
                             ${TITLE}\
                         </li>'.replace("${TITLE}", argTitle);
 
-        document.getElementById("choice-box").innerHTML += argEntry;
-    }
-</script>
+            document.getElementById("choice-box").innerHTML += argEntry;
+        }
+
+        function add_vote() {
+            const xhr = new XMLHttpRequest();
+
+            xhr.open("POST", "/api/votes/", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify({
+                choice: this.id
+            }));
+
+            this.remove();
+        }
+    </script>
 {% endblock %}
