@@ -1,8 +1,10 @@
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, get_object_or_404
 
+from HighfieldHack2.apps.core.compare_str import CompareStrings
 from HighfieldHack2.apps.core.models import Debate, DebateTextArgument, Poll, PollChoice
 from HighfieldHack2.apps.debates.forms import DebateForm, DebateTextArgumentForm, PollForm, PollChoices
 
@@ -69,10 +71,7 @@ def view_index(request):
 
 @login_required
 def create_argument(request, pk=None, is_for=None):
-    if is_for == 1:
-        is_for = True
-    else:
-        is_for = False
+    is_for = is_for == 1
 
     debate = get_object_or_404(Debate, pk=pk)
 
@@ -81,6 +80,15 @@ def create_argument(request, pk=None, is_for=None):
 
         if form.is_valid():
             form = form.save(commit=False)
+
+            comparator = CompareStrings()
+            old_arguments = [i.title for i in DebateTextArgument.objects.all().filter(debate=debate)]
+            similarity_rating = comparator.compareStrings(form.title, old_arguments)
+
+            for similarity in similarity_rating:
+                if similarity > 0.75:
+                    messages.info(request, f"Your argument is very similar to a previous argument.")
+                    break
 
             form.owner = request.user
             form.debate = debate
@@ -99,7 +107,7 @@ def create_argument(request, pk=None, is_for=None):
                 }
             )
 
-            return redirect("/debates/debate/view/{}/".format(pk))
+            return redirect(f"/debates/debate/view/{pk}/")
     else:
         form = DebateTextArgumentForm()
 
