@@ -20,10 +20,13 @@
                             <ul id="choice-box">
                                 {% for choice in choices %}
                                     <li>
-                                        {{ choice.choice_votes.all | length }}
+                                        <p id="{{ choice.id }}">
+                                            {{ choice.choice_votes.all | length }} vote(s)
+                                        </p>
                                         {{ choice.title }}
 
-                                        <button id="{{ choice.id }}" class="button is-success" onclick="add_vote()">
+                                        <button class="button is-success"
+                                                onclick="add_vote({{ choice.id }})">
                                             Vote
                                         </button>
                                     </li>
@@ -69,17 +72,15 @@
         }
 
         function add_vote(e) {
-            e.preventDefault();
-
             const xhr = new XMLHttpRequest();
 
             xhr.open("POST", "/api/votes/", true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-            xhr.send("choice=" + e.id);
+            xhr.send("choice=" + e);
 
-            e.remove();
+            location.reload();
         }
     </script>
 {% endblock %}
