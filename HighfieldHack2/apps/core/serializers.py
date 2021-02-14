@@ -26,19 +26,18 @@ class DebateSerializer(serializers.ModelSerializer):
         read_only_fields = ("debate_votes", "debate_arguments")
 
 
-class ChoiceVoteSerializer(serializers.ModelSerializer):
+class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PollChoiceVote
+        model = PollChoice
         fields = ()
 
 
-class ChoiceSerializer(serializers.ModelSerializer):
-    choice_votes = ChoiceVoteSerializer(many=True)
+class ChoiceVoteSerializer(serializers.ModelSerializer):
+    choice = ChoiceSerializer()
 
     class Meta:
-        model = PollChoice
-        fields = ("title", "choice_votes")
-        read_only_fields = ("choice_votes",)
+        model = PollChoiceVote
+        fields = ("choice",)
 
 
 class PollSerializer(serializers.ModelSerializer):
