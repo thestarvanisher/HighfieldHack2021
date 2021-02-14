@@ -29,7 +29,7 @@ class DebateSerializer(serializers.ModelSerializer):
 class ChoiceVoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = PollChoiceVote
-        fields = "__all__"
+        fields = ()
 
 
 class ChoiceSerializer(serializers.ModelSerializer):
