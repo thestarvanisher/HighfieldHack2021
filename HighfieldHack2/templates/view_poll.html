@@ -74,11 +74,13 @@
         function add_vote(e) {
             const xhr = new XMLHttpRequest();
 
+            let formData = new FormData();
+
+            formData.append("choice", e);
+
             xhr.open("POST", "/api/votes/", true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-            xhr.send("choice=" + e);
+            xhr.send(formData);
 
             location.reload();
         }
