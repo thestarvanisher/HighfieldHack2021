@@ -90,6 +90,8 @@ def create_argument(request, pk=None, is_for=None):
                 if similarity > 0.75:
                     messages.info(request, f"Your argument is very similar to a previous argument.")
 
+                    form = DebateTextArgumentForm()
+
                     form.fields["is_for"].initial = is_for
 
                     context = {
